@@ -17,8 +17,8 @@ This application allows users to:
 
 - **Framework:** Next.js 14
 - **Styling:** Tailwind CSS
-- **Database:** [Your database choice]
-- **Authentication:** [Your auth solution]
+- **Database:** Prisma, Neon Db(PostgreSQL)
+- **Authentication:** Clerk
 - **Video Storage:** Cloudinary
 - **Deployment:** [Your deployment platform]
 
