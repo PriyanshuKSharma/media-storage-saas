@@ -1,7 +1,7 @@
-"use client"
+"use client";
 
-import React, { useState, useEffect, useRef } from 'react';
-import { CldImage } from 'next-cloudinary';
+import React, { useState, useEffect, useRef } from "react";
+import { CldImage } from "next-cloudinary";
 
 // Define various social media image formats with their respective dimensions and aspect ratios
 const socialFormats = {
@@ -18,13 +18,13 @@ type SocialFormat = keyof typeof socialFormats;
 export default function SocialShare() {
     // State for storing the uploaded image
     const [uploadedImage, setUploadedImage] = useState<string | null>(null);
-    
+
     // State for tracking the selected social media format
     const [selectedFormat, setSelectedFormat] = useState<SocialFormat>("Instagram Square (1:1)");
-    
+
     // State for tracking if an image is being uploaded
     const [isUploading, setIsUploading] = useState(false);
-    
+
     // State for tracking if an image is being transformed
     const [isTransforming, setIsTransforming] = useState(false);
 
@@ -58,7 +58,6 @@ export default function SocialShare() {
 
             const data = await response.json();
             setUploadedImage(data.publicId); // Store the uploaded image's public ID
-
         } catch (error) {
             console.log(error);
             alert("Failed to upload image");

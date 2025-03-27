@@ -1,39 +1,30 @@
-"use client" 
-// This ensures the component runs in a client-side environment in Next.js.
+"use client";
 
-import React, { useState } from 'react';
-import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import React, { useState } from "react";
+import axios from "axios";
+import { useRouter } from "next/navigation";
 
-// Functional component for video upload
 function VideoUpload() {
-    // State variables to manage file, title, description, and upload status
     const [file, setFile] = useState<File | null>(null);
     const [title, setTitle] = useState("");
     const [description, setDescription] = useState("");
     const [isUploading, setIsUploading] = useState(false);
+    const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-    // Router hook for navigation
     const router = useRouter();
-
-    // Define maximum allowed file size (70MB)
     const MAX_FILE_SIZE = 70 * 1024 * 1024;
 
-    // Function to handle form submission
     const handleSubmit = async (e: React.FormEvent) => {
-        e.preventDefault(); // Prevents page refresh on form submission
+        e.preventDefault();
+        if (!file) return;
 
-        if (!file) return; // Exit if no file is selected
-
-        // Check if the file size exceeds the limit
         if (file.size > MAX_FILE_SIZE) {
-            alert("File size too large"); // Show an alert if file is too large
+            alert("File size too large");
             return;
         }
 
-        setIsUploading(true); // Set uploading state to true
+        setIsUploading(true);
 
-        // Create FormData to send file and other details
         const formData = new FormData();
         formData.append("file", file);
         formData.append("title", title);
@@ -41,75 +32,126 @@ function VideoUpload() {
         formData.append("originalSize", file.size.toString());
 
         try {
-            // Send a POST request to upload the video
-            const response = await axios.post("/api/video-upload", formData);
-
-            // Redirect to home page on successful upload
+            await axios.post("/api/video-upload", formData);
             router.push("/");
         } catch (error) {
-            console.log(error); // Log error in case of failure
-            // TODO: Implement notification for failure
+            console.log(error);
         } finally {
-            setIsUploading(false); // Reset uploading state
+            setIsUploading(false);
         }
     };
 
     return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Upload Video</h1>
-            
-            {/* Form for uploading video */}
-            <form onSubmit={handleSubmit} className="space-y-4">
-                
-                {/* Input field for video title */}
-                <div>
-                    <label className="label">
-                        <span className="label-text">Title</span>
-                    </label>
-                    <input
-                        type="text"
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="input input-bordered w-full"
-                        required
-                    />
+        <div className="flex h-screen">
+            {/* Sidebar */}
+            <div
+                className={`fixed top-0 left-0 h-full bg-gray-800 text-white w-64 transform ${
+                    isSidebarOpen ? "translate-x-0" : "-translate-x-full"
+                } transition-transform duration-300 ease-in-out`}
+            >
+                <div className="p-4">
+                    <h2 className="text-2xl font-bold">Sidebar</h2>
+                    <ul className="mt-4 space-y-2">
+                        <li>
+                            <a href="/home" className="block px-4 py-2 hover:bg-gray-700 rounded">
+                                Home Page
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/social-share" className="block px-4 py-2 hover:bg-gray-700 rounded">
+                                Social Share
+                            </a>
+                        </li>
+                        <li>
+                            <a href="/video-upload" className="block px-4 py-2 bg-primary text-white rounded">
+                                Video Upload
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            {/* Main Content */}
+            <div className="flex-1 ml-0 md:ml-64 transition-all duration-300">
+                <div className="bg-gray-100 p-4 shadow-md flex items-center justify-between">
+                    <button
+                        onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                        className="text-gray-800 focus:outline-none"
+                    >
+                        <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            className="lucide lucide-menu"
+                        >
+                            <line x1="4" y1="12" x2="20" y2="12"></line>
+                            <line x1="4" y1="6" x2="20" y2="6"></line>
+                            <line x1="4" y1="18" x2="20" y2="18"></line>
+                        </svg>
+                    </button>
+                    <h1 className="text-xl font-bold">Video Upload</h1>
                 </div>
 
-                {/* Input field for video description */}
-                <div>
-                    <label className="label">
-                        <span className="label-text">Description</span>
-                    </label>
-                    <textarea
-                        value={description}
-                        onChange={(e) => setDescription(e.target.value)}
-                        className="textarea textarea-bordered w-full"
-                    />
+                {/* Form */}
+                <div className="container mx-auto max-w-lg p-6 bg-white shadow-md rounded-lg mt-6">
+                    <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">
+                        Upload Your Video
+                    </h1>
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div>
+                            <label className="label">
+                                <span className="label-text font-medium text-gray-700">Title</span>
+                            </label>
+                            <input
+                                type="text"
+                                value={title}
+                                onChange={(e) => setTitle(e.target.value)}
+                                className="input input-bordered w-full bg-gray-50 text-gray-800 focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter video title"
+                                required
+                            />
+                        </div>
+                        <div>
+                            <label className="label">
+                                <span className="label-text font-medium text-gray-700">Description</span>
+                            </label>
+                            <textarea
+                                value={description}
+                                onChange={(e) => setDescription(e.target.value)}
+                                className="textarea textarea-bordered w-full bg-gray-50 text-gray-800 focus:ring-2 focus:ring-blue-500"
+                                placeholder="Enter video description"
+                            />
+                        </div>
+                        <div>
+                            <label className="label">
+                                <span className="label-text font-medium text-gray-700">Video File</span>
+                            </label>
+                            <input
+                                type="file"
+                                accept="video/*"
+                                onChange={(e) => setFile(e.target.files?.[0] || null)}
+                                className="file-input file-input-bordered w-full bg-gray-50 focus:ring-2 focus:ring-blue-500"
+                                required
+                            />
+                        </div>
+                        <button
+                            type="submit"
+                            className={`btn btn-primary w-full ${
+                                isUploading ? "opacity-50 cursor-not-allowed" : ""
+                            }`}
+                            disabled={isUploading}
+                        >
+                            {isUploading ? "Uploading..." : "Upload Video"}
+                        </button>
+                    </form>
                 </div>
-
-                {/* Input field for video file selection */}
-                <div>
-                    <label className="label">
-                        <span className="label-text">Video File</span>
-                    </label>
-                    <input
-                        type="file"
-                        accept="video/*"
-                        onChange={(e) => setFile(e.target.files?.[0] || null)}
-                        className="file-input file-input-bordered w-full"
-                        required
-                    />
-                </div>
-
-                {/* Upload button, disabled while uploading */}
-                <button
-                    type="submit"
-                    className="btn btn-primary"
-                    disabled={isUploading}
-                >
-                    {isUploading ? "Uploading..." : "Upload Video"}
-                </button>
-            </form>
+            </div>
         </div>
     );
 }
