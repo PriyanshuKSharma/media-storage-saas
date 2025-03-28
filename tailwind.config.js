@@ -13,11 +13,19 @@ const config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        primary: "#1D4ED8",
+        secondary: "#9333EA",
+        accent: "#F59E0B",
+      },
+      fontFamily: {
+        sans: ["Inter", "sans-serif"],
+      },
     },
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["light"],
+    themes: ["light", "dark"],
   },
 };
 
