@@ -33,50 +33,31 @@ function Home() {
         fetchVideos();
     }, [fetchVideos]);
 
-    // Function to handle video download
-    const handleDownload = useCallback((url: string, title: string) => {
-        const link = document.createElement("a");
-        link.href = url;
-        link.setAttribute("download", `${title}.mp4`);
-        link.setAttribute("target", "_blank");
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-    }, []);
-
     // Show loading state
-    if (loading) {
-        return <div className="flex justify-center items-center h-screen">Loading...</div>;
-    }
+    if (loading) return <p>Loading...</p>;
+    if (error) return <p className="text-red-500">{error}</p>;
 
     return (
-        <div className="flex h-screen">
-            {/* Main Content */}
-            <div className="flex-1 ml-0 md:ml-64 transition-all duration-300">
-                <div className="bg-gray-100 p-4 shadow-md flex items-center justify-between">
-                    <h1 className="text-xl font-bold">Home</h1>
+        <div className="container mx-auto px-4 py-6">
+            <h1 className="text-2xl font-bold mb-6">Your Videos</h1>
+            {videos.length === 0 ? (
+                <div className="text-center py-10">
+                    <p className="text-gray-500">No videos uploaded yet</p>
                 </div>
-
-                {/* Videos Section */}
-                <div className="container mx-auto p-6">
-                    <h1 className="text-3xl font-bold text-center mb-6 text-gray-800">Videos</h1>
-                    {videos.length === 0 ? (
-                        <div className="text-center text-lg text-gray-500">
-                            No videos available
-                        </div>
-                    ) : (
-                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-                            {videos.map((video) => (
-                                <VideoCard
-                                    key={video.id}
-                                    video={video}
-                                    onDownload={handleDownload}
-                                />
-                            ))}
-                        </div>
-                    )}
+            ) : (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+                    {videos.map((video) => (
+                        <VideoCard 
+                            key={video.id} 
+                            video={video} 
+                            onDownload={(url, title) => {
+                                // Implement download functionality
+                                window.open(url, '_blank');
+                            }} 
+                        />
+                    ))}
                 </div>
-            </div>
+            )}
         </div>
     );
 }

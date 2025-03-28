@@ -49,7 +49,7 @@ function VideoUpload() {
                     isSidebarOpen ? "translate-x-0" : "-translate-x-full"
                 } transition-transform duration-300 ease-in-out`}
             >
-                <div className="p-4">
+                {/* <div className="p-4">
                     <h2 className="text-2xl font-bold">Sidebar</h2>
                     <ul className="mt-4 space-y-2">
                         <li>
@@ -68,12 +68,12 @@ function VideoUpload() {
                             </a>
                         </li>
                     </ul>
-                </div>
+                </div> */}
             </div>
 
             {/* Main Content */}
             <div className="flex-1 ml-0 md:ml-64 transition-all duration-300">
-                <div className="bg-gray-100 p-4 shadow-md flex items-center justify-between">
+                {/* <div className="bg-gray-100 p-4 shadow-md flex items-center justify-between">
                     <button
                         onClick={() => setIsSidebarOpen(!isSidebarOpen)}
                         className="text-gray-800 focus:outline-none"
@@ -96,7 +96,7 @@ function VideoUpload() {
                         </svg>
                     </button>
                     <h1 className="text-xl font-bold">Video Upload</h1>
-                </div>
+                </div> */}
 
                 {/* Form */}
                 <div className="container mx-auto max-w-lg p-6 bg-white shadow-md rounded-lg mt-6">
@@ -142,12 +142,32 @@ function VideoUpload() {
                         </div>
                         <button
                             type="submit"
-                            className={`btn btn-primary w-full ${
-                                isUploading ? "opacity-50 cursor-not-allowed" : ""
+                            className={`bg-blue-500 hover:bg-blue-600 text-black font-semibold w-full py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 flex items-center justify-center gap-2 ${
+                                isUploading ? "relative overflow-hidden" : ""
                             }`}
                             disabled={isUploading}
                         >
-                            {isUploading ? "Uploading..." : "Upload Video"}
+                            {isUploading ? (
+                                <>
+                                    <span className="flex items-center">
+                                        <svg className="animate-spin -ml-1 mr-2 h-5 w-5 text-black" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                                            <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                                            <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                                        </svg>
+                                        Uploading...
+                                    </span>
+                                    <div className="absolute bottom-0 left-0 h-1 bg-blue-300 animate-pulse" style={{ width: '100%' }}></div>
+                                </>
+                            ) : (
+                                <>
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-upload">
+                                        <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                                        <polyline points="17 8 12 3 7 8"></polyline>
+                                        <line x1="12" y1="3" x2="12" y2="15"></line>
+                                    </svg>
+                                    Upload Video
+                                </>
+                            )}
                         </button>
                     </form>
                 </div>
