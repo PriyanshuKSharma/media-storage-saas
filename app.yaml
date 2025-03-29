@@ -8,7 +8,7 @@ env_variables:
   CLERK_SECRET_KEY: k_test_3FGbV4Zl1fUJU11JTtPRMygefzksQEYZL98jCsTVwm
   NEXT_PUBLIC_CLERK_SIGN_UP_URL: /sign-up
   NEXT_PUBLIC_CLERK_SIGN_IN_URL: /sign-in
-  NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=: k_test_cGxlYXNpbmctZ3JhY2tsZS0zMS5jbGVyay5hY2NvdW50cy5kZXYk
+  # NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY=: k_test_cGxlYXNpbmctZ3JhY2tsZS0zMS5jbGVyay5hY2NvdW50cy5kZXYk
   # Add other environment variables as needed
 handlers:
   - url: /.*
