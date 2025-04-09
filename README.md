@@ -108,7 +108,7 @@ The project follows a modular and organized structure, adhering to the conventio
 
 3. Run the development server:
 ```bash
-        npm run dev
+    npm run dev
     # or
     yarn dev
     # or
@@ -139,4 +139,4 @@ The application is designed for deployment on Vercel, leveraging its seamless in
 4. Deploy the application.
 
 # Conclusion
-The Cloudinary SaaS Platform is a robust and scalable solution for video management. Its modular architecture, modern tech stack, and seamless integration with Cloudinary make it an ideal choice for building video-centric SaaS applications. ```
+The Cloudinary SaaS Platform is a robust and scalable solution for video management. Its modular architecture, modern tech stack, and seamless integration with Cloudinary make it an ideal choice for building video-centric SaaS applications.
