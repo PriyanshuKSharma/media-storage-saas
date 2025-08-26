@@ -139,4 +139,4 @@ The application is designed for deployment on Vercel, leveraging its seamless in
 4. Deploy the application.
 
 # Conclusion
-The Cloudinary SaaS Platform is a robust and scalable solution for video management. Its modular architecture, modern tech stack, and seamless integration with Cloudinary make it an ideal choice for building video-centric SaaS applications. ```
+The Cloudinary SaaS Platform is a robust and scalable solution for video management. Its modular architecture, modern tech stack, and seamless integration with Cloudinary make it an ideal choice for building video-centric SaaS applications.
