@@ -108,7 +108,7 @@ The project follows a modular and organized structure, adhering to the conventio
 
 3. Run the development server:
 ```bash
-        npm run dev
+    npm run dev
     # or
     yarn dev
     # or
